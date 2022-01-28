@@ -160,9 +160,9 @@ def extract_names(filename):
     def cut_val(s):
         arr = s.split(' ')
         if len(arr) > 1:
-            return arr
+            return [int(arr[0]), arr[1]]
         else:
-            return arr + [None]
+            return [int(arr[0]), None]
 
 
     babynames_dict = {data_arr[i][1:][0].strip(): {years[year]: cut_val(data_arr[i][2:][year].strip()) for year in range(len(years))} for i in range(len(data_arr))}
