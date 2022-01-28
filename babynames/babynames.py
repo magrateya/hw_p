@@ -151,7 +151,21 @@ def extract_names(filename):
 
     data_arr = reg_ex.findall(s)
 
+     # -= 1 часть =-
     result_dict = {data_arr[i][1:][0].strip(): [el.strip() for el in data_arr[i][2:]] for i in range(len(data_arr))}
+
+     # -= 2 часть (дополнительная) =-
+    years = ['2012', '2010', '2005', '2000', '1990']
+
+    def cut_val(s):
+        arr = s.split(' ')
+        if len(arr) > 1:
+            return arr
+        else:
+            return arr + [None]
+
+
+    babynames_dict = {data_arr[i][1:][0].strip(): {years[year]: cut_val(data_arr[i][2:][year].strip()) for year in range(len(years))} for i in range(len(data_arr))}
 
        
     """
@@ -185,27 +199,48 @@ def extract_names(filename):
     </td> </tr>
 
     """
-    # +++ваш код+++
-    return result_dict
+    
+    return babynames_dict
 
+ # -= 1 часть =-
+# def print_names(babynames):
+#     names_dict = {k: v for k, v in sorted(babynames.items(), key=lambda x: x[0])}
 
-def print_names(babynames):
-    names_dict = {k: v for k, v in sorted(babynames.items(), key=lambda x: x[0])}
-
-    years = ['2012', '2010', '2005', '2000', '1990']
-    year = input()
-    print(f'select a year: {year}')
+#     years = ['2012', '2010', '2005', '2000', '1990']
+#     year = input()
+#     print(f'select a year: {year}')
    
 
-    if year in years:
-        ind = years.index(year)
+#     if year in years:
+#         ind = years.index(year)
 
-        for key in names_dict:
-            print(key, names_dict[key][ind])
-    else:
-        print('select a year')
+#         for key in names_dict:
+#             print(key, names_dict[key][ind])
+#     else:
+#         print('select a year')
 
     
+#     return
+
+# -= 2 часть (дополнительная) =-
+def print_names(babynames):
+
+    year_inp = input()
+    sorted_dict = {k: v for k, v in sorted(babynames.items(), key=lambda x: x[1][year_inp][0])}
+ 
+    for item_key in sorted_dict:
+        print(item_key, sorted_dict[item_key][year_inp][0])
+    
+  
+
+    #  for key in babynames:
+    #     year = '2000'
+
+    #     if babynames[key][year][1] != None:
+    #         print(key, babynames[key][year][0], babynames[key][year][1])
+    #     else:
+    #         print(key, babynames[key][year][0])
+            
     return
 
 def main():
