@@ -73,7 +73,7 @@ def download_images(img_urls, dest_dir):
     html_arr.append('</body></html>')
     html_markup = ''.join(html_arr)
 
-    f = open('html.html', 'w')
+    f = open('index.html', 'w')
     f.write(html_markup)
     f.close()
 
